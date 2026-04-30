@@ -132,7 +132,7 @@ function LuxuryCard({ link, index }: { link: any, index: number }) {
             {link.icon}
           </motion.div>
 
-          <div className="relative z-10 text-center" style={{ translateZ: 80 }}>
+          <div className="relative z-10 text-center" style={{ transform: "translateZ(80px)" }}>
             <span className="text-[14px] font-black tracking-[0.8em] text-rose-300 uppercase block mb-4 opacity-80 group-hover:text-white transition-all duration-500">
               For You
             </span>
@@ -214,7 +214,7 @@ export default function Home() {
         transition={{ duration: 2.5, ease: "circOut" }}
         className="fixed inset-0 z-0 transform-gpu overflow-hidden"
       >
-        <FilmStrip onImageClick={(src: string) => setSelectedImg(src)} />
+        
         <div className="absolute inset-0 bg-gradient-to-tr from-rose-900/20 via-transparent to-rose-900/20" />
         <div className="absolute inset-0 bg-black/30" />
       </motion.div>

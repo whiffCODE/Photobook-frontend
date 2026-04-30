@@ -301,14 +301,21 @@ export default function MePage() {
 const GalleryCard = ({ img, index, onDownload, onSelect, isCloud, onDelete }: any) => {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-      transition={{ delay: index * 0.05 }}
-      animate={{ scale: [1, 1.02, 1] }} transition={{ repeat: Infinity, duration: 4, delay: index * 0.2 }}
-      whileHover={{ y: -20, scale: 1.05 }}
-      className="relative group aspect-[3/4] rounded-[2.5rem] overflow-hidden cursor-zoom-in border border-white/10 bg-white/5 shadow-2xl"
-      onClick={() => onSelect(img)}
-    >
+  initial={{ opacity: 0, scale: 0.8 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+
+  animate={{ scale: [1, 1.02, 1] }}
+
+  transition={{
+    delay: index * 0.05,
+    duration: 4,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}
+
+  whileHover={{ y: -20, scale: 1.05 }}
+>
       <img src={img} className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-125" alt="Moment" />
       
       <div className="absolute inset-0 bg-gradient-to-t from-rose-950/90 via-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8 gap-3">

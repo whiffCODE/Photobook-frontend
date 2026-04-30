@@ -16,7 +16,7 @@ export default function LoveLetter() {
       const canvas = await html2canvas(letterRef.current, {
         backgroundColor: "#0a0104",
         scale: 3, // High resolution for premium feel
-        borderRadius: 40,
+        
         useCORS: true,
       });
       const link = document.createElement("a");
@@ -160,7 +160,7 @@ export default function LoveLetter() {
                 {/* THE STATIONERY CARD */}
                 <div 
                   ref={letterRef}
-                  className="relative bg-[#fffefc] text-[#1a0f11] rounded-[3rem] p-12 md:p-20 shadow-[0_50px_150px_rgba(244,63,94,0.3)] overflow-hidden"
+                  className="relative bg-[#fffefc] text-[#1a0f11] rounded-[3rem] p-12 md:p-20 shadow-[0_50px_150px_rgba(244,63,94,0.3)] rounded-[40px] overflow-hidden"
                 >
                   {/* Subtle Paper Texture & Watermark */}
                   <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]" />
