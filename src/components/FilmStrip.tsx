@@ -5,12 +5,17 @@ import { motion } from "framer-motion";
 // Update this with your actual image count
 const images = Array.from({ length: 52 }, (_, i) => `/images/${i + 1}.jpeg`);
 
-export default function FilmStrip() {
+type FilmStripProps = {
+  onImageClick?: (src: string) => void;
+};
+
+export default function FilmStrip({ onImageClick }: FilmStripProps) {
   const row1 = images.slice(0, 26);
   const row2 = images.slice(26, 52);
 
   return (
-    <div className="absolute inset-0 overflow-hidden z-0 bg-[#050101] pointer-events-none select-none">
+    // 🔧 allow clicks on frames
+    <div className="absolute inset-0 overflow-hidden z-0 bg-[#050101] pointer-events-auto select-none">
       {/* 1. Global Cinematic Filter Section */}
       <div className="absolute inset-0 z-20 pointer-events-none">
         {/* Grain Overlay */}
@@ -39,7 +44,13 @@ export default function FilmStrip() {
             }}
           >
             {[...row1, ...row1, ...row1].map((img, i) => (
-              <Frame key={`row1-${i}`} img={img} delay={i * 0.2} direction="up" />
+              <Frame
+                key={`row1-${i}`}
+                img={img}
+                delay={i * 0.2}
+                direction="up"
+                onImageClick={onImageClick} // 👈 pass down
+              />
             ))}
           </motion.div>
         </div>
@@ -56,7 +67,13 @@ export default function FilmStrip() {
             }}
           >
             {[...row2, ...row2, ...row2].map((img, i) => (
-              <Frame key={`row2-${i}`} img={img} delay={i * 0.3} direction="down" />
+              <Frame
+                key={`row2-${i}`}
+                img={img}
+                delay={i * 0.3}
+                direction="down"
+                onImageClick={onImageClick} // 👈 pass down
+              />
             ))}
           </motion.div>
         </div>
@@ -69,7 +86,17 @@ export default function FilmStrip() {
 }
 
 // --- Component: Individual Film Frame with Internal Animations ---
-function Frame({ img, delay, direction }: { img: string; delay: number; direction: "up" | "down" }) {
+function Frame({
+  img,
+  delay,
+  direction,
+  onImageClick,
+}: {
+  img: string;
+  delay: number;
+  direction: "up" | "down";
+  onImageClick?: (src: string) => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -82,7 +109,8 @@ function Frame({ img, delay, direction }: { img: string; delay: number; directio
         opacity: { duration: 2, delay },
         y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: delay * 0.5 }
       }}
-      className="relative shrink-0 group"
+      className="relative shrink-0 group cursor-pointer"
+      onClick={() => onImageClick?.(img)} // 👈 click handler
     >
       <div className="relative w-[300px] h-[420px] overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
         {/* The Image with "Ken Burns" Effect */}
@@ -108,7 +136,7 @@ function Frame({ img, delay, direction }: { img: string; delay: number; directio
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10" />
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-rose-500/10" />
         
-        {/* Film Perforations (The "Film Strip" look) */}
+        {/* Film Perforations */}
         <div className="absolute left-2 top-0 bottom-0 flex flex-col justify-around py-2 opacity-20">
           {[...Array(8)].map((_, i) => (
             <div key={i} className="w-3 h-4 bg-black rounded-sm" />
@@ -138,7 +166,7 @@ function AmbientAtmosphere() {
         className="absolute inset-0 bg-gradient-to-r from-transparent via-rose-400/10 to-transparent blur-[150px] z-10 pointer-events-none"
       />
 
-      {/* Floating Dust Particles (High Density) */}
+      {/* Floating Dust Particles */}
       <div className="absolute inset-0 z-20 pointer-events-none">
         {[...Array(25)].map((_, i) => (
           <motion.div
