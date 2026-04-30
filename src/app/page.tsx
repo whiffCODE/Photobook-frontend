@@ -214,7 +214,7 @@ export default function Home() {
         transition={{ duration: 2.5, ease: "circOut" }}
         className="fixed inset-0 z-0 transform-gpu overflow-hidden"
       >
-        
+        <FilmStrip onImageClick={(src: string) => setSelectedImg(src)} />
         <div className="absolute inset-0 bg-gradient-to-tr from-rose-900/20 via-transparent to-rose-900/20" />
         <div className="absolute inset-0 bg-black/30" />
       </motion.div>
